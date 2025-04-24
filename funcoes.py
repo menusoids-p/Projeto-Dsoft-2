@@ -7,4 +7,3 @@ def rolar_dados(n):
         x = random.randint(1,6)
         lista.append(x)
     return lista
-
