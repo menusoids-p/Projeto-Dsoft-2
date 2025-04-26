@@ -24,4 +24,13 @@ def remover_dado(rolados,guardados,indice):
 
     return [rolados, guardados]
 
+def calcula_pontos_regra_simples (rolados):
+    saida = {1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0}
+
+    for numero in rolados:
+        saida[numero] += numero
+    
+    return saida
+
+
 
