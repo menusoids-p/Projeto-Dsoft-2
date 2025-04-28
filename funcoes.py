@@ -172,3 +172,21 @@ def imprime_cartela(cartela):
         else:
             print(f"| {i}: {filler}|    |")
     print("-"*25)
+
+
+def verifica_categoria(categoria, cartela):
+   
+    numeros = ['1','2','3','4','5','6']
+    if categoria in numeros:
+        categoria = int(categoria)
+
+    if categoria in cartela['regra_simples']:
+        if cartela['regra_simples'][categoria] != -1:
+            print("Essa combinação já foi utilizada.")
+    
+    elif categoria in cartela['regra_avancada']:
+        if cartela['regra_avancada'][categoria] != -1:
+            print("Essa combinação já foi utilizada.")
+    
+    else:
+        print("Combinação inválida. Tente novamente.")
