@@ -25,52 +25,91 @@ cartela = {
 def rodada(cartela, rolados, guardados):
     contador_rolagem = 0
 
-    decisao = int(input("Digite 1 para guardar um dado, 2 para remover um dado, 3 para rerrolar, 4 para ver a cartela ou 0 para marcar a pontuação:"))
+    print("Digite 1 para guardar um dado, 2 para remover um dado, 3 para rerrolar, 4 para ver a cartela ou 0 para marcar a pontuação:")
+    decisao = input()
 
-    while decisao != 0:
+    while decisao != '0':
         
-        if decisao == 1:
-            indice = int(input("Digite o índice do dado a ser guardado (0 a 4):"))
+        if decisao == '1':
+            print("Digite o índice do dado a ser guardado (0 a 4):")
+            indice = int(input())
+
             funcao = guardar_dado(rolados, guardados, indice)
             rolados = funcao[0]
             guardados = funcao[1]
 
-        elif decisao == 2:
-            indice = int(input("Digite o índice do dado a ser removido (0 a 4):"))
+            print(f'Dados rolados: {rolados}')
+            print(f'Dados guardados: {guardados}')
+
+            print("Digite 1 para guardar um dado, 2 para remover um dado, 3 para rerrolar, 4 para ver a cartela ou 0 para marcar a pontuação:")
+            decisao = input()
+
+        elif decisao == '2':
+            indice = int(input())
+            print("Digite o índice do dado a ser removido (0 a 4):")
+
             funcao = remover_dado(rolados, guardados, indice)
             rolados = funcao[0]
             guardados = funcao[1]
 
-        elif decisao == 3:
+            print(f'Dados rolados: {rolados}')
+            print(f'Dados guardados: {guardados}')
+
+            print("Digite 1 para guardar um dado, 2 para remover um dado, 3 para rerrolar, 4 para ver a cartela ou 0 para marcar a pontuação:")
+            decisao = input() 
+
+
+        elif decisao == '3':
             if contador_rolagem >= 2:
                 print("Você já usou todas as rerrolagens.")
             else:
                 rolados = rolar_dados(len(rolados))
                 contador_rolagem += 1
 
-        elif decisao == 4:
+            print(f'Dados rolados: {rolados}')
+            print(f'Dados guardados: {guardados}')
+
+            print("Digite 1 para guardar um dado, 2 para remover um dado, 3 para rerrolar, 4 para ver a cartela ou 0 para marcar a pontuação:")
+            decisao = input()
+
+        elif decisao == '4':
             imprime_cartela(cartela)
 
+            print(f'Dados rolados: {rolados}')
+            print(f'Dados guardados: {guardados}')
+
+            print("Digite 1 para guardar um dado, 2 para remover um dado, 3 para rerrolar, 4 para ver a cartela ou 0 para marcar a pontuação:")
+            decisao = input()
+
         else:
-            decisao = int(input("Opção inválida. Tente novamente."))
+            print("Opção inválida. Tente novamente.")
+            decisao = input()
+        
 
-        print(f'Dados rolados: {rolados}')
-        print(f'Dados guardados: {guardados}')
-        decisao = int(input("Digite 1 para guardar um dado, 2 para remover um dado, 3 para rerrolar, 4 para ver a cartela ou 0 para marcar a pontuação:"))
-
-    # Quando decidir marcar pontuação (decisao == 0):
     dados = rolados + guardados
-    categoria = input("Digite a combinação desejada:")
+
+    print("Digite a combinação desejada:")
+    categoria = input()
+
     teste = verifica_categoria(categoria, cartela)
 
     while teste == 1 or teste == 0:
         if teste == 1:
-            categoria = input("Essa combinação já foi utilizada.")
+            print("Essa combinação já foi utilizada.")
+            categoria = input()
+
         elif teste == 0:
-            categoria = input("Combinação inválida. Tente novamente.")
+            print("Combinação inválida. Tente novamente.")
+            categoria = input()
         teste = verifica_categoria(categoria, cartela)
 
     faz_jogada(dados, categoria, cartela)
+
+    rolados = rolar_dados(5)
+    guardados = []
+
+    print(f'Dados rolados: {rolados}')
+    print(f'Dados guardados: {guardados}')
 
     return cartela
 
@@ -84,6 +123,7 @@ print(f'Dados guardados: {guardados}')
 while conta_rodada < 12:
     cartela = rodada(cartela, rolados, guardados)
     conta_rodada += 1
+
     rolados = rolar_dados(5)
     guardados = []
 
@@ -101,4 +141,4 @@ if pontos_regras_simples >= 63:
     pontuacao += 35
 
 imprime_cartela(cartela)
-print(f"Pontuação final: {pontuacao}")
+print(f"Pontuação total: {pontuacao}")
