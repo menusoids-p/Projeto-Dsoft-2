@@ -71,12 +71,8 @@ def rodada(cartela, rolados, guardados):
         
     if decisao == 0:
 
-        dados = []
-        for num in rolados:
-            dados.append(num)
-        for num in guardados:
-            dados.append(num)
-
+        dados = rolados + guardados
+        
         categoria = input( "Digite a combinação desejada:")
 
         teste = verifica_categoria(categoria,cartela)
