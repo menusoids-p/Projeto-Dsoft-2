@@ -180,13 +180,11 @@ def verifica_categoria(categoria, cartela):
     if categoria in numeros:
         categoria = int(categoria)
 
-    if categoria in cartela['regra_simples']:
-        if cartela['regra_simples'][categoria] != -1:
-            print("Essa combinação já foi utilizada.")
+    if categoria in cartela['regra_simples'] and cartela['regra_simples'][categoria] != -1:
+        return 1
     
-    elif categoria in cartela['regra_avancada']:
-        if cartela['regra_avancada'][categoria] != -1:
-            print("Essa combinação já foi utilizada.")
+    elif categoria in cartela['regra_avancada'] and cartela['regra_avancada'][categoria] != -1:
+        return 1
     
-    else:
-        print("Combinação inválida. Tente novamente.")
+    elif categoria not in cartela['regra_avancada'] and categoria not in cartela['regra_simples']:
+       return 0

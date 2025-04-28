@@ -1,7 +1,7 @@
 
 from funcoes import *
 
-rolados = rolar_dados(6)
+rolados = rolar_dados(5)
 guardados = []
 
 cartela= {
@@ -37,6 +37,7 @@ def rodada(cartela, rolados, guardados):
             guardados = funcao[1]
             print(f'Dados rolados: {rolados}')
             print(f'Dados guardados: {guardados}')
+            decisao = int(input( "Digite 1 para guardar um dado, 2 para remover um dado, 3 para rerrolar, 4 para ver a cartela ou 0 para marcar a pontuação:"))
         
         elif decisao == 2 and contador_rolagem < 2:
             indice = int(input( "Digite o índice do dado a ser removido (0 a 4):"))
@@ -45,16 +46,20 @@ def rodada(cartela, rolados, guardados):
             guardados = funcao[1]
             print(f'Dados rolados: {rolados}')
             print(f'Dados guardados: {guardados}')
-            contador_rolagem += 1
+
+            decisao = int(input( "Digite 1 para guardar um dado, 2 para remover um dado, 3 para rerrolar, 4 para ver a cartela ou 0 para marcar a pontuação:"))
         
-        if contador_rolagem == 2:
-            print( "Você já usou todas as rerrolagens.")
         
         elif decisao == 3:
-            l = len(rolados)
-            rolados = rolar_dados(l)
+            if contador_rolagem >= 2:
+                print("Você já usou todas as rerrolagens.")
+            else:
+                l = len(rolados)
+                rolados = rolar_dados(l)
+                contador_rolagem += 1
             print(f'Dados rolados: {rolados}')
             print(f'Dados guardados: {guardados}')
+            decisao = int(input( "Digite 1 para guardar um dado, 2 para remover um dado, 3 para rerrolar, 4 para ver a cartela ou 0 para marcar a pontuação:"))
         
         elif decisao == 4:
             imprime_cartela(cartela)
@@ -62,10 +67,9 @@ def rodada(cartela, rolados, guardados):
             print(f'Dados guardados: {guardados}')
         
         elif decisao not in [0,1,2,3,4]:
-            print("Opção inválida. Tente novamente.")
+           decisao = int(input("Opção inválida. Tente novamente."))
         
     if decisao == 0:
-        categoria = int(input( "Digite a combinação desejada:"))
 
         dados = []
         for num in rolados:
@@ -73,6 +77,47 @@ def rodada(cartela, rolados, guardados):
         for num in guardados:
             dados.append(num)
 
-        verifica_categoria(categoria,cartela)
+        categoria = input( "Digite a combinação desejada:")
+
+        teste = verifica_categoria(categoria,cartela)
+        
+        while teste == 1 or teste == 0: 
+
+            if teste == 1:
+                categoria = input("Essa combinação já foi utilizada.")
+                teste = verifica_categoria(categoria,cartela)
+        
+            elif teste == 0:
+                categoria = input("Combinação inválida. Tente novamente.")
+                teste = verifica_categoria(categoria,cartela)
+            
 
         faz_jogada(dados,categoria, cartela)
+
+
+conta_rodada = 0
+
+imprime_cartela(cartela)
+
+print(f'Dados rolados: {rolados}')
+print(f'Dados guardados: {guardados}')
+
+while conta_rodada <= 11:
+    rodada(cartela,rolados, guardados)
+    conta_rodada += 1
+
+pontuacao = 0
+pontos_regras_simples = 0
+
+for regra, valores in cartela.items():
+    for pontos in valores.values():
+        pontuacao += pontos
+        if regra == 'regra_simples':
+            pontos_regras_simples += pontos
+
+if pontos_regras_simples >= 63:
+    pontuacao += 35
+
+imprime_cartela(cartela)
+print(f"Pontuação final: {pontuacao}")
+
