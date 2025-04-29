@@ -105,9 +105,6 @@ def rodada(cartela, rolados, guardados):
 
     faz_jogada(dados, categoria, cartela)
 
-    rolados = rolar_dados(5)
-    guardados = []
-
     print(f'Dados rolados: {rolados}')
     print(f'Dados guardados: {guardados}')
 
