@@ -45,8 +45,9 @@ def rodada(cartela, rolados, guardados):
             decisao = input()
 
         elif decisao == '2':
-            indice = int(input())
+            
             print("Digite o índice do dado a ser removido (0 a 4):")
+            indice = int(input())
 
             funcao = remover_dado(rolados, guardados, indice)
             rolados = funcao[0]
@@ -105,8 +106,6 @@ def rodada(cartela, rolados, guardados):
 
     faz_jogada(dados, categoria, cartela)
 
-    print(f'Dados rolados: {rolados}')
-    print(f'Dados guardados: {guardados}')
 
     return cartela
 
@@ -119,10 +118,15 @@ print(f'Dados guardados: {guardados}')
 
 while conta_rodada < 12:
     cartela = rodada(cartela, rolados, guardados)
-    conta_rodada += 1
-
+    
     rolados = rolar_dados(5)
     guardados = []
+
+    if conta_rodada != 11:
+        print(f'Dados rolados: {rolados}')
+        print(f'Dados guardados: {guardados}')
+    
+    conta_rodada += 1
 
 # Cálculo da pontuação final
 pontuacao = 0
